@@ -1,0 +1,40 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /cloud
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  flyway:
+    baseline-on-migrate: true
+    schemas: cloud
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 500KB
+      max-request-size: 500KB
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+my:
+  file:
+    directory: Files_uploaded
+  jwt:
+    secret-key: 71337336763979244226452948404D635166546A576E5A7234753777217A2543
+    expiration-term: 86_400_000 #1 day

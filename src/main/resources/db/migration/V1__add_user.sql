@@ -1,0 +1,1 @@
+insert into cloud.users (login, password) values ('admin', '$2a$12$AzRMsZ.RmLZAlkDde1L/AeT8RlrcVATezLui2YdqMpdNUXwKXRDFa')
