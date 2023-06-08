@@ -26,11 +26,22 @@ spring:
       max-file-size: 500KB
       max-request-size: 500KB
 
+  banner:
+    location: classpath:banner.txt
+
 logging:
   level:
+    ru:
+      netology:
+        diplomacloudapi: info
     org:
+      apache:
+        tomcat: warn
+      hibernate: error
       springframework:
-        security: DEBUG
+        web: warn
+  file:
+    name: logs/cloud.log
 
 my:
   file:
