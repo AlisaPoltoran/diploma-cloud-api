@@ -1,4 +1,4 @@
-package ru.netology.diplomacloudapi.entity;
+package ru.netology.diplomacloudapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package ru.netology.diplomacloudapi.config;
+package ru.netology.diplomacloudapi.config.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,10 +27,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
 
+    @Value("${my.auth-header}")
+    private String header;
+
     @Override
-    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Auth-Token");
-//        final String authHeader = request.getHeader(AUTHORIZATION);
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain filterChain) throws ServletException, IOException {
+        final String authHeader = request.getHeader(header);
         final String jwt;
         final String login;
 
@@ -45,7 +49,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .map(t -> !t.isExpired() && !t.isRevoked())
                     .orElse(false);
             if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
+                        null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

@@ -1,4 +1,4 @@
-package ru.netology.diplomacloudapi.entity;
+package ru.netology.diplomacloudapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
