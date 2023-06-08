@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.netology.diplomacloudapi.entity.AuthenticationRequest;
-import ru.netology.diplomacloudapi.entity.AuthenticationResponse;
+import ru.netology.diplomacloudapi.dto.AuthenticationRequest;
+import ru.netology.diplomacloudapi.dto.AuthenticationResponse;
 import ru.netology.diplomacloudapi.service.AuthenticationService;
 import ru.netology.diplomacloudapi.service.LogoutService;
 

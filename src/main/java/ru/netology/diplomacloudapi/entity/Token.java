@@ -2,6 +2,7 @@ package ru.netology.diplomacloudapi.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.netology.diplomacloudapi.entity.enums.TokenType;
 
 @Entity
 @AllArgsConstructor

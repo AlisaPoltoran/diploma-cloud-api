@@ -5,10 +5,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.netology.diplomacloudapi.entity.FileEntityDto;
-import ru.netology.diplomacloudapi.entity.NewFileName;
-import ru.netology.diplomacloudapi.entity.Response;
-import ru.netology.diplomacloudapi.entity.SuccessfulResponse;
+import ru.netology.diplomacloudapi.dto.FileEntityDto;
+import ru.netology.diplomacloudapi.dto.NewFileName;
+import ru.netology.diplomacloudapi.dto.Response;
+import ru.netology.diplomacloudapi.dto.SuccessfulResponse;
 import ru.netology.diplomacloudapi.exception.InternalServerError;
 import ru.netology.diplomacloudapi.service.FileService;
 
