@@ -26,7 +26,7 @@ public class FileEntity {
     @Column(nullable = false, name = "size_in_bytes")
     private int sizeInBytes;
     @JoinColumn()
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
 

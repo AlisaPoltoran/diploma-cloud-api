@@ -2,6 +2,7 @@ package ru.netology.diplomacloudapi.config;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ru.netology.diplomacloudapi.config.filter.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +25,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
+    @Value("${my.cors.allowed-origins}")
+    private String allowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -59,7 +63,7 @@ public class SecurityConfig {
                 registry
                         .addMapping("/**")
                         .allowCredentials(true)
-                        .allowedOrigins("http://localhost:8080")
+                        .allowedOrigins(allowedOrigins)
                         .allowedMethods("*");
             }
         };
