@@ -44,12 +44,10 @@ logging:
     name: logs/cloud.log
 
 my:
-  file:
-    directory: Files_uploaded
   jwt:
     secret-key: 71337336763979244226452948404D635166546A576E5A7234753777217A2543
     expiration-term: 86_400_000 #1 day
   auth-header: Auth-Token #for FRONT
-  #  auth-header: Authorization #for POSTMAN
+#  auth-header: Authorization #for POSTMAN
   cors:
     allowed-origins: http://localhost:8080

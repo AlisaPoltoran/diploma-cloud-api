@@ -9,7 +9,6 @@ import ru.netology.diplomacloudapi.dto.FileEntityDto;
 import ru.netology.diplomacloudapi.dto.NewFileName;
 import ru.netology.diplomacloudapi.dto.Response;
 import ru.netology.diplomacloudapi.dto.SuccessfulResponse;
-import ru.netology.diplomacloudapi.exception.InternalServerError;
 import ru.netology.diplomacloudapi.service.FileService;
 
 import java.io.IOException;
@@ -22,12 +21,11 @@ public class FileController {
     private final FileService fileService;
 
     /**
-     * A method that receives MultipartFile, saves it locally, parses it to a FileEntity, and saves
-     * the FileEntity to a database
+     * A method that receives MultipartFile, parses it to a FileEntity, and saves the FileEntity to a database
      *
      * @param file an uploaded file received in a multipart request
      * @return a String message (an object of a SuccessfulResponse class) in case of successful uploading of the file
-     * @throws IOException when file is not uploaded locally
+     * @throws IOException in case of access errors (if the temporary store fails)
      */
     @PostMapping("/file")
     public ResponseEntity<Response> saveFile(@RequestParam("file") MultipartFile file) throws IOException {
@@ -36,11 +34,10 @@ public class FileController {
 
     /**
      * A method that receives String filename in query of a request and deletes the file with
-     * the filename from local file system and from a database
+     * the filename from a database
      *
      * @param fileName a String that contains a file name to be deleted
      * @return a String message (an object of a SuccessfulResponse class) in case of successful uploading of the file
-     * @throws IOException when file in not deleted
      */
     @DeleteMapping("/file")
     public ResponseEntity<SuccessfulResponse> deleteFile(@RequestParam("filename") String fileName) throws IOException {
@@ -52,27 +49,25 @@ public class FileController {
      *
      * @param fileName a String that contains a file name to be downloaded
      * @return an instance of Resource which is an object representation of the file to be downloaded by a user
-     * @throws InternalServerError when the Resource is not created
      */
     @GetMapping("file")
-    public ResponseEntity<Resource> getFile(@RequestParam("filename") String fileName) throws InternalServerError {
-        return ResponseEntity.ok()
-                .body(fileService.getFile(fileName));
+
+    public ResponseEntity<Resource> getFile(@RequestParam("filename") String fileName) {
+        return fileService.getFile(fileName);
     }
 
     /**
      * A method that receives a filename in a query and an object NewFileName in the body of
-     * a request and renames the file stored locally under the filename using a new file name
+     * a request and renames the file stored in a DB under the filename using a new file name
      *
      * @param fileName    a String contains a file name to be edited
      * @param newFileName an object of a NewFileName class with a single field that contains
-     *                    a new file name
+     * a new file name
      * @return a String message (an object of a SuccessfulResponse class) in case of successful uploading
      * of the file
-     * @throws InternalServerError when file is not edited
      */
     @PutMapping("/file")
-    public ResponseEntity<SuccessfulResponse> editFile(@RequestParam("filename") String fileName, @RequestBody NewFileName newFileName) throws InternalServerError {
+    public ResponseEntity<SuccessfulResponse> editFile(@RequestParam("filename") String fileName, @RequestBody NewFileName newFileName) {
         return ResponseEntity.ok(fileService.editFile(fileName, newFileName));
     }
 
@@ -81,8 +76,8 @@ public class FileController {
      * and returns a list of FileEntityDto in corresponding numbers
      *
      * @param limit an int contains a number of requested files
-     * @return a list that contains a number of FileEntityDto (String fileName
-     * and int sizeInBytes) specified in the limit
+     * @return a list that contains a number of FileEntityDto (String fileName and int sizeInBytes)
+     * specified in the limit
      */
     @GetMapping("/list")
     public ResponseEntity<List<FileEntityDto>> getAllFiles(@RequestParam("limit") int limit) {

@@ -11,8 +11,9 @@ create table if not exists cloud.files
     name               varchar(255) not null,
     creation_date_time TIMESTAMPTZ DEFAULT Now(),
     user_id            bigint       not null,
-    file_path          varchar(255) not null,
     size_in_bytes      int          not null,
+    content            oid          not null,
+    content_type       varchar(255) not null,
     FOREIGN KEY (user_id) references cloud.users (id)
 );
 
