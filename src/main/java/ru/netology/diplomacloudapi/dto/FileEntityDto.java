@@ -17,6 +17,7 @@ public class FileEntityDto {
 
     public FileEntityDto(FileEntity fileEntity) {
         this.fileName = fileEntity.getName();
-        this.sizeInBytes = fileEntity.getSizeInBytes();
+        this.sizeInBytes = (int) fileEntity.getSizeInBytes();
+
     }
 }

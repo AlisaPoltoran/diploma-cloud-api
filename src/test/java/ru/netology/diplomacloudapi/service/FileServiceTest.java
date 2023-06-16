@@ -201,7 +201,8 @@ class FileServiceTest {
     void shouldEditFileName() {
 
         String fileName = "test.txt";
-        NewFileName newFileName = NewFileName.builder().fileName("newTest.txt").build();
+        NewFileName newFileName = new NewFileName();
+        newFileName.setFileName("newTest.txt");
         FileEntity fileEntity = FileEntity.builder().name(fileName).build();
 
         when(fileRepository.findByName(fileName)).thenReturn(Optional.of(fileEntity));
@@ -226,7 +227,8 @@ class FileServiceTest {
     void shouldThrowErrorInputDataExceptionInEditFileWhenNewFileNameIsInDB() {
 
         String fileName = "test.txt";
-        NewFileName newFileName = NewFileName.builder().fileName("newTest.txt").build();
+        NewFileName newFileName = new NewFileName();
+        newFileName.setFileName("newTest.txt");
 
         when(fileRepository.findByName(fileName)).thenReturn(Optional.of(new FileEntity()));
         when(fileRepository.existsByName(newFileName.getFileName())).thenReturn(true);

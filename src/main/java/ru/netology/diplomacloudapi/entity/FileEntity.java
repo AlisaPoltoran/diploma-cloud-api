@@ -25,7 +25,7 @@ public class FileEntity {
     private LocalDateTime date;
 
     @Column(nullable = false, name = "size_in_bytes")
-    private int sizeInBytes;
+    private long sizeInBytes;
 
     @JoinColumn()
     @ManyToOne(fetch = FetchType.LAZY)

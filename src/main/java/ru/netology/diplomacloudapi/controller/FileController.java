@@ -40,7 +40,7 @@ public class FileController {
      * @return a String message (an object of a SuccessfulResponse class) in case of successful uploading of the file
      */
     @DeleteMapping("/file")
-    public ResponseEntity<SuccessfulResponse> deleteFile(@RequestParam("filename") String fileName) throws IOException {
+    public ResponseEntity<SuccessfulResponse> deleteFile(@RequestParam("filename") String fileName) {
         return ResponseEntity.ok(fileService.deleteFile(fileName));
     }
 
@@ -51,7 +51,6 @@ public class FileController {
      * @return an instance of Resource which is an object representation of the file to be downloaded by a user
      */
     @GetMapping("file")
-
     public ResponseEntity<Resource> getFile(@RequestParam("filename") String fileName) {
         return fileService.getFile(fileName);
     }
